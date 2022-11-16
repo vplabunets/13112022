@@ -1,3 +1,4 @@
+import { useGetByRegion } from 'hooks/useGetByRegion';
 import {
   Container,
   SearchForm,
@@ -8,10 +9,14 @@ import {
 } from 'components';
 
 export const CountrySearch = () => {
+  const { countries, error, isLoading, onHandleSubmit } = useGetByRegion();
   return (
     <Section>
       <Container>
-        <h2>CountrySearch</h2>
+        <SearchForm onSubmit={onHandleSubmit} />
+        {error && <Heading textAlign="center"> Something went wrong</Heading>}
+        {isLoading && <Loader />}
+        {countries && <CountryList countries={countries} />}
       </Container>
     </Section>
   );
